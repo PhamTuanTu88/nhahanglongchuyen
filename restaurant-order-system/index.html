@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Nhà Hàng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- MODAL HÓA ĐƠN -->
+<div id="invoice-modal" class="modal">
+  <div class="modal__backdrop"></div>
+
+  <!-- phần này là vùng in (print-area) -->
+  <div class="modal__dialog print-area">
+    <div class="modal__header">
+      <div>
+        <div style="font-weight:700">Nhà Hàng Long Chuyên</div>
+        <div class="subtitle">Hóa đơn bàn <span id="mTable"></span></div>
+      </div>
+
+      <button id="modal-close" class="modal__close" aria-label="Đóng">×</button>
+    </div>
+
+    <div class="modal__body">
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr>
+            <th style="text-align:left;border-bottom:1px solid #e5e7eb;padding:6px">Món</th>
+            <th style="text-align:right;border-bottom:1px solid #e5e7eb;padding:6px">SL</th>
+            <th style="text-align:right;border-bottom:1px solid #e5e7eb;padding:6px">Giá</th>
+            <th style="text-align:right;border-bottom:1px solid #e5e7eb;padding:6px">Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody id="mBody"></tbody>
+      </table>
+
+      <div class="total-line" style="margin-top:8px">
+        Tổng: <span id="mTotal">0</span> đ
+      </div>
+    </div>
+
+    <div class="modal__footer">
+      <button id="btn-print" class="btn-primary">In hóa đơn</button>
+      <button id="btn-confirm" class="btn-primary outline">Xác nhận thanh toán</button>
+    </div>
+  </div>
+</div>
+
+
+<body>
+<header>Nhà Hàng — 30 bàn</header>
+<div class="layout">
+  <div class="tables-panel">
+    <h3>Chọn bàn</h3>
+    <div id="grid" class="grid-tables"></div>
+  </div>
+
+  <div class="order-panel">
+    <div class="order-header">
+      <h3 id="order-title">Chưa chọn bàn</h3>
+      <small id="order-note">Bấm bàn bên trái để bắt đầu order</small>
+    </div>
+
+    <div class="menu-tabs">
+      <button id="tab-bia" class="active" onclick="setCategory('bia')">Bia / nhậu</button>
+      <button id="tab-lau" onclick="setCategory('lau')">Lẩu</button>
+      <button id="tab-co" onclick="setCategory('co')">Cỗ món</button>
+    </div>
+
+    <div id="menu-list" class="menu-list"></div>
+
+    <h4>Danh sách món đã order</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Món</th>
+          <th>SL</th>
+          <th>Giá</th>
+          <th>Thành tiền</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="order-body"></tbody>
+    </table>
+    <div class="total-line">
+      Tổng: <span id="order-total">0</span> đ
+    </div>
+  </div>
+  <div class="total-line">
+    Tổng: <span id="order-total">0</span> đ
+    <button id="btn-payment" onclick="payment()" style="margin-left: 10px;">Thanh toán</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
