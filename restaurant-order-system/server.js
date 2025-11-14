@@ -99,16 +99,11 @@ app.post('/login', (req, res) => {
   const validPassword = '19791980';
 
   if (username === validUsername && password === validPassword) {
-    // SỬA ĐỔI CẤU HÌNH COOKIE:
-    res.cookie('loggedIn', true, { 
-        maxAge: 3600000, 
-        httpOnly: true, 
-        secure: true,   // THÊM: Bắt buộc cho môi trường HTTPS (Railway)
-        sameSite: 'Lax' // THÊM: Cấu hình cross-site (Lax thường đủ, hoặc dùng 'None' nếu cần)
-    });
+    // Lưu cookie khi đăng nhập thành công
+    res.cookie('loggedIn', true, { maxAge: 3600000, httpOnly: true });
     // Trả về 200 OK. Client sẽ nhận thấy thành công và tự chuyển hướng.
     return res.status(200).send({ message: 'Đăng nhập thành công!' }); 
-} else {
+  } else {
     res.status(400).send({ message: 'Tên đăng nhập hoặc mật khẩu không đúng!' });
   }
 });
@@ -153,10 +148,6 @@ app.post('/save-invoice', (req, res) => {
     });
   });
 });
-
-const cors = require('cors');
-app.use(cors());
-
 
 // Cấu hình server chạy trên port 3000
 app.listen(PORT, () => {
